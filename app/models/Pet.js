@@ -9,7 +9,7 @@ var petSchema = new Schema({
 
 // the schema is useless so far
 // we need to create a model using it
-var User = mongoose.model('Pet', petSchema);
+var Pet = mongoose.model('Pet', petSchema);
 
 // make this available to our users in our Node applications
 module.exports = Pet;

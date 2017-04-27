@@ -1,23 +1,24 @@
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
-var PetLocation = require('./app/models/PetLocation');
+var PetLocation = require('./app/models/PetLocation.js');
+var bodyParser = require('body-parser');
 
+app.use(bodyParser.json());
 
 app.get('/', function(req, res){
   res.send('hello world');
 });
 
-app.use(express.bodyParser());
 
 app.post('/api/v1/pet_location', function(req, res){
   	if(req.get('auth') == 'aUqVokPnFANRdAANLTMKTb8c') {
-		let locationInfo = req.body;
-		console.log(locationInfo);
+		console.log(req.body);
+		var locationInfo = req.body;
 		mongoose.connect('mongodb://localhost/trackpet');
-		let pLocation = new PetLocation({
-			timestamp: locationInfo.timestamp,
-			lat: lcationinfo.lat,
+		var pLocation = new PetLocation({
+			timestamp: Date.now(),
+			lat: locationInfo.lat,
 			lon: locationInfo.lon
 		}); 	
 		pLocation.save(function(err) {
